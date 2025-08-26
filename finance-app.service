@@ -1,0 +1,16 @@
+[Unit]
+Description=Finance App Flask Application
+After=network.target
+
+[Service]
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/finance-app
+Environment="PATH=/home/ubuntu/finance-app/venv/bin"
+ExecStart=/home/ubuntu/finance-app/venv/bin/gunicorn --config gunicorn_config.py app:app
+
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
