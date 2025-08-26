@@ -259,7 +259,7 @@
     async function sendMessage(message) {
       appendMessage('user', message);
       try {
-        const res = await fetch('http://127.0.0.1:1111/ask', {
+        const res = await fetch('/ask', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message })
@@ -304,7 +304,7 @@
 
   Please generate a welcome message suited for a teenager. Make the person feel inviting.`;
     try {
-        const res = await fetch('http://127.0.0.1:1111/ask', {
+        const res = await fetch('/ask', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message: userInfoMessage }),

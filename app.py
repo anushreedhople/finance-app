@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from openai import OpenAI
 import os
@@ -6,13 +6,21 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='Frontend')
 CORS(app)
 
 client = OpenAI(api_key=os.getenv("openai_key"))
 
 # simple in-memory chat history for one user/session
 chat_history = []
+
+@app.route('/')
+def index():
+    return send_from_directory('Frontend', 'index.html')
+
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory('Frontend', path)
 
 @app.route("/ask", methods=["POST"])
 def ask():
