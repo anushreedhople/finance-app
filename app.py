@@ -9,7 +9,12 @@ load_dotenv()
 app = Flask(__name__, static_folder='Frontend')
 CORS(app)
 
-client = OpenAI(api_key=os.getenv("openai_key"))
+# Initialize OpenAI client with clean parameters
+api_key = os.getenv("openai_key")
+if not api_key:
+    raise ValueError("OpenAI API key not found in environment variables")
+
+client = OpenAI(api_key=api_key)
 
 # simple in-memory chat history for one user/session
 chat_history = []
